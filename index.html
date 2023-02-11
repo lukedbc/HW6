@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <title>Bellevue College Cooking Competition</title>
+</head>
+
+<body>
+    <!-- ======================================================================================== -->
+    <div data-role="page" id="home">
+
+        <!-- header -->
+        <div data-role="header" data-theme='b'>
+            <h2>Cooking Competition!</h2>
+
+            <div data-role="navbar" data-theme='b'>
+                <ul>
+                    <li><a href="#home">Home Page</a></li>
+                    <li><a href="#sign-up">Sign up</a></li>
+                    <li><a href="#join-a-team">Join a team</a></li>
+                    <li><a href="#signature-dishes">Signature Dishes</a></li>
+                    <!-- <li><a href="#dashboard">Dashboard</a></li> -->
+                    <!-- <li><a href="#contact-us">Contact Us</a></li> -->
+                </ul>
+            </div><!-- /navbar -->
+        </div>
+
+        <!-- content -->
+        <div data-role="content" data-theme='e' class="container-full">
+            <div class="container-top">
+                <div class="home-title">
+                    <h3>Welcome to Bellevue College's Cooking Competition!</h3>
+                </div>
+
+                <div class="description">
+                    This is where we host our annual cooking competion starting
+                    November 1st every year! Our next season will take place in 2023, which will be hosted live
+                    on Bulldog News during the month. If you wish to join us in this heated competition, please navigate
+                    to
+                    our signup page to get started! We can't wait to host you this year!
+                </div>
+
+                <br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+            <br><br>
+            <div class="container-bottom">
+
+                <div class="learn-more">
+                    If you wish to learn more about this event, then keep reading! This annual on-campus cooking
+                    competition
+                    lasts for 14 days, with most days typically having the following schedule:
+                    <ul>
+                        <li>8:30-9:00am - Arrival time & station preparation</li>
+                        <li>9:00-10:00am - Work on breakfast dishes</li>
+                        <li>10:00-10:30am - Judgement and scoring of competitors</li>
+                        <li>10:30-11:00am - Break and reseting each station</li>
+                        <li>11:00am-12:00pm - Work on lunch dishes</li>
+                        <li>12:00-12:30pm - Judgement and scoring of competitors</li>
+                        <li>12:30-2:00pm - Break and reseting each station, competitors' meal time</li>
+                        <li>2:00-3:00pm - Work on pastry dishes</li>
+                        <li>3:00-3:30pm - Judgement and scoring of competitors</li>
+                        <li>3:30-5:00pm - Break and reseting each station, faculty feedback to competitors</li>
+                        <li>5:00-6:00pm - Work on dinner dishes</li>
+                        <li>6:00-6:30pm - Judgement and scoring of competitors</li>
+                        <li>6:30-7:00pm - Clean up stations, go home!</li>
+                    </ul>
+                    During the finale days at the end of the two weeks, the schedule will deviate and be more geared
+                    towards
+                    our finalists, which for the last day, we will announce the winners after the final dinner service!
+                    This will
+                    be a very packed, but fun two weeks for everyone competing!
+                </div>
+
+                <br><br><br><br><br><br>
+
+                <div class="requirements">
+                    In order to be a competitor in this event, you must have the following requirements:
+                    <ul>
+                        <li>You are a student at Bellevue College</li>
+                        <li>You are above the age of 18</li>
+                        <li>Your GPA is at least a 3.0 if this is not your first quarter attending</li>
+                        <li>You are taking at least 10 credits during the quarter you're competing</li>
+                        <li>You have a strong passion for cooking and have the determination to be a winner in
+                            this competition!
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- notes footer -->
+        <div data-role="footer" data-theme='b'>
+            <h3>Copyright 2023 by Juniper Diegel and Loc Dao</h3>
+        </div>
+
+    </div>
+    <!-- ======================================================================================== -->
+
+
+    <!-- ======================================================================================== -->
+    <div data-role="page" id="sign-up">
+
+        <!-- =================================== -->
+        <!-- header -->
+        <div data-role="header" data-theme='b'>
+            <h2>Sign Up to be a competitor!</h2>
+
+            <div data-role="navbar" data-theme='b'>
+                <ul>
+                    <li><a href="#home">Home Page</a></li>
+                    <li><a href="#sign-up">Sign up</a></li>
+                    <li><a href="#join-a-team">Join a team</a></li>
+                    <li><a href="#signature-dishes">Signature Dishes</a></li>
+                    <!-- <li><a href="#dashboard">Dashboard</a></li> -->
+                    <!-- <li><a href="#contact-us">Contact Us</a></li> -->
+                </ul>
+            </div><!-- /navbar -->
+
+        </div>
+        <!-- =================================== -->
+
+        <!-- =================================== -->
+        <!-- content -->
+        <div data-role="content" data-theme='e'>
+            <form id="sign-up">
+                <label for="sID">Student ID</label>
+                <input type="number" id="sID"><br>
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName"><br>
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName"><br>
+                <label for="major">Major</label>
+                <input type="text" id="major"><br>
+                <label for="gender">Gender</label>
+                <select name="gender" id="gender">
+                    <option></option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Non-Binary</option>
+                    <option>Other</option>
+                </select><br>
+                <label for="birthday">Date of Birth</label>
+                <input type="date" id="birthday">
+                <label for="background">What kind of cooking experience do you have?</label>
+                <textarea id="background"></textarea>
+                <label for="reason">Why do you want to be considered for this competition?</label>
+                <textarea id="reason"></textarea>
+                <label for="extra">Is there anything else we should know about you that's not mentioned above?</label>
+                <textarea id="extra"></textarea><br>
+                <input type="submit" value="Submit" id="sign-up-btn">
+            </form>
+        </div>
+        <!-- =================================== -->
+
+
+        <!-- =================================== -->
+        <!-- notes footer -->
+        <div data-role="footer" data-theme='b'>
+            <h3>Copyright 2023 by Juniper Diegel and Loc Dao</h3>
+        </div>
+        <!-- =================================== -->
+    </div>
+    <!-- ======================================================================================== -->
+
+
+
+    <!-- ======================================================================================== -->
+    <div data-role="page" id="join-a-team">
+
+        <!-- =================================== -->
+        <!-- header -->
+        <div data-role="header" data-theme='b'>
+            <h2>Join a team</h2>
+
+
+            <div data-role="navbar" data-theme='b'>
+                <ul>
+                    <li><a href="#home">Home Page</a></li>
+                    <li><a href="#sign-up">Sign up</a></li>
+                    <li><a href="#join-a-team">Join a team</a></li>
+                    <li><a href="#signature-dishes">Signature Dishes</a></li>
+                    <!-- <li><a href="#dashboard">Dashboard</a></li> -->
+                    <!-- <li><a href="#contact-us">Contact Us</a></li> -->
+                </ul>
+            </div><!-- /navbar -->
+        </div>
+        <!-- =================================== -->
+
+        <!-- =================================== -->
+        <!-- content -->
+        <div data-role="content" data-theme='e'>
+            <div id="join-a-team-content">
+            </div>
+
+        </div>
+        <!-- notes footer -->
+        <!-- =================================== -->
+        <div data-role="footer" data-theme='b'>
+            <h3>Copyright 2023 by Juniper Diegel and Loc Dao</h3>
+        </div>
+    </div>
+
+    <!-- ======================================================================================== -->
+    <div data-role="page" id="signature-dishes">
+
+        <!-- =================================== -->
+        <!-- header -->
+        <div data-role="header" data-theme='b'>
+            <h2>Signature Dishes</h2>
+
+
+            <div data-role="navbar" data-theme='b'>
+                <ul>
+                    <li><a href="#home">Home Page</a></li>
+                    <li><a href="#sign-up">Sign up</a></li>
+                    <li><a href="#join-a-team">Join a team</a></li>
+                    <li><a href="#signature-dishes">Signature Dishes</a></li>
+                    <!-- <li><a href="#dashboard">Dashboard</a></li> -->
+                    <!-- <li><a href="#contact-us">Contact Us</a></li> -->
+                </ul>
+            </div><!-- /navbar -->
+        </div>
+        <!-- =================================== -->
+
+        <!-- =================================== -->
+        <!-- content -->
+        <div data-role="content" data-theme='e'>
+            <div>
+                <button class="ui-btn ui-corner-all">Your dishes</button>
+                <ul id="dishes-list" />
+            </div>
+            <div>
+                <form>
+                    <label for="title">Title</label>
+                    <input type="text" id="title"><br>
+
+                    <label for="picture">Picture</label>
+                    <input type="text" id="picture"><br>
+
+                    <label for="dishes-difficulty">Difficulty</label>
+                    <select name="difficulty" id="dishes-difficulty">
+                        <option></option>
+                        <option>Easy</option>
+                        <option>Medium</option>
+                        <option>Hard</option>
+                    </select><br>
+                    <label for="description">Describe the dishes</label>
+                    <textarea id="description"></textarea>
+                    <label for="recipe">Recipe</label>
+                    <textarea id="recipe"></textarea>
+                    <button class="ui-btn ui-corner-all">Add</button>
+                </form>
+            </div>
+        </div>
+        <!-- notes footer -->
+        <div data-role="footer" data-theme='b'>
+            <h3>Copyright 2023 by Juniper Diegel and Loc Dao</h3>
+        </div>
+        <!-- =================================== -->
+
+    </div>
+
+    <div data-role="page" id="dashboard">
+
+        <!-- =================================== -->
+        <!-- header -->
+        <div data-role="header" data-theme='b'>
+            <h2>Management Dashboard</h2>
+
+
+            <div data-role="navbar" data-theme='b'>
+                <ul>
+                    <li><a href="#home">Home Page</a></li>
+                    <li><a href="#sign-up">Sign up</a></li>
+                    <li><a href="#join-a-team">Join a team</a></li>
+                    <li><a href="#signature-dishes">Signature Dishes</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#contact-us">Contact Us</a></li>
+                </ul>
+            </div><!-- /navbar -->
+        </div>
+        <!-- =================================== -->
+
+        <!-- =================================== -->
+        <!-- content -->
+        <div data-role="content" data-theme='e'>
+            <div>
+                <button class="ui-btn ui-corner-all" id="sign-up-list-btn">Sign up list</button>
+                <ul id="sign-up-list" />
+            </div>
+            <div>
+                <button class="ui-btn ui-corner-all" id="contact-list-btn">Contact list</button>
+                <ul id="contact-list" />
+            </div>
+        </div>
+        <!-- =================================== -->
+
+        <!-- =================================== -->
+        <!-- notes footer -->
+        <div data-role="footer" data-theme='b'>
+            <h3>Copyright 2023 by Juniper Diegel and Loc Dao</h3>
+        </div>
+        <!-- =================================== -->
+
+    </div> <!-- ======================================================================================== -->
+
+    <div data-role="page" id="contact-us">
+
+        <!-- =================================== -->
+        <!-- header -->
+        <div data-role="header" data-theme='b'>
+            <h2>Contact Us</h2>
+
+
+            <div data-role="navbar" data-theme='b'>
+                <ul>
+                    <li><a href="#home">Home Page</a></li>
+                    <li><a href="#sign-up">Sign up</a></li>
+                    <li><a href="#join-a-team">Join a team</a></li>
+                    <li><a href="#signature-dishes">Signature Dishes</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#contact-us">Contact Us</a></li>
+                </ul>
+            </div><!-- /navbar -->
+        </div>
+        <!-- =================================== -->
+
+        <!-- =================================== -->
+        <!-- content -->
+        <div data-role="content" data-theme='e'>
+            <h3>We'd love to hear from you!
+                Please contact us either by phone or email.</h3><br>
+            Phone: ***-***-****<br>
+            Email: ****.****@bellevuecollege.edu<br><br>
+
+            If either of these methods don't work,
+            you are more than welcome write your message below,
+            and we'll get back to you with your email address as soon
+            as possible!<br><br>
+
+            <form id="contact">
+                <label for="name">Your Name</label>
+                <input type="text" id="name"><br>
+                <label for="email">Email Address</label>
+                <input type="email" id="email"><br>
+                <label for="message">Write your message:</label>
+                <textarea id="message"></textarea><br>
+                <input type="submit" value="Submit" id="contact-us-btn"></label>
+            </form>
+        </div>
+        <!-- =================================== -->
+
+        <!-- =================================== -->
+        <!-- notes footer -->
+        <div data-role="footer" data-theme='b'>
+            <h3>Copyright 2023 by Juniper Diegel and Loc Dao</h3>
+        </div>
+        <!-- =================================== -->
+
+    </div>
+    <script src="helper.js"></script>
+    <script src="sign-up-entity.js"></script>
+    <script src="contact-entity.js"></script>
+    <script src="storage.js"></script>
+    <script src="matrix.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
