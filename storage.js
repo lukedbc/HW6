@@ -16,6 +16,10 @@ Storage.prototype.getAll = function() {
     return this.m_data;
 }
 
+Storage.prototype.getName = function() {
+    return this.m_name;
+}
+
 Storage.prototype.add = function(value) {
     this.m_data.push(value);
 }

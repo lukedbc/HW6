@@ -1,9 +1,10 @@
 const signUpStorage = new Storage("sign-up-data", JSON.parse(getValueFromCache("sign-up-data")));
 const contactStorage = new Storage("contact-data", JSON.parse(getValueFromCache("contact-data")));
 
+
 function handleSignUp(e) {
     handleInputTemplate(e, function(_) {
-        let signUpEntity = new SignUpEntity({
+        const signUpEntity = new Contestant({
             _studentId: getValueFromInputElement("sID"),
             _firstName: getValueFromInputElement("firstName"),
             _lastName: getValueFromInputElement("lastName"),
@@ -12,6 +13,8 @@ function handleSignUp(e) {
             _experience: getValueFromInputElement("background"),
             _reason: getValueFromInputElement("reason"),
             _other: getValueFromInputElement("extra"),
+            _team: null,
+            _member: null,
         });
 
         if (signUpEntity.isValid()) {
@@ -84,7 +87,10 @@ function initMatrix() {
                 _memberOrder: memberOrder,
                 _handleFunction:
                     function() {
-                        alert(`cick on slot: team-${team}-member-${memberOrder}`)
+                        alert(`click on slot: team-${team}-member-${memberOrder}`);
+                        if (signUpStorage.m_name != null) {
+                            // Enter names onto team page
+                        }
                     }
             })
         }
