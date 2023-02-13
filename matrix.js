@@ -1,5 +1,10 @@
 const NUMBER_OF_TEAM = 3;
 const NUMBER_MEMEBER_EACH_TEAM = 5;
+let memberSlot = [
+    ["Available to join", "Available to join", "Available to join", "Available to join", "Available to join"],
+    ["Available to join", "Available to join", "Available to join", "Available to join", "Available to join"],
+    ["Available to join", "Available to join", "Available to join", "Available to join", "Available to join"]
+];
 
 function drawMatrixTo(elementId) {
     let element = getElement(elementId);
@@ -24,7 +29,9 @@ function drawMatrixTo(elementId) {
             let td = document.createElement("td");
             td.setAttribute("id", "team-" + j + "-member-" + i);
 
-            td.innerText = "Available to join";
+            
+            td.innerText = memberSlot[j - 1][i - 1];
+            
             row.appendChild(td);
         }
 
@@ -33,6 +40,14 @@ function drawMatrixTo(elementId) {
     }
 
     element.appendChild(table);
+}
+
+function assignMatrixSlot(name, team, memberOrder) {
+    memberSlot[team][memberOrder] = name;
+}
+
+function getMatrixSlot(team, memberOrder) {
+    return memberSlot[team][memberOrder];
 }
 
 function addEventToSlot({

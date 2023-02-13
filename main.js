@@ -1,10 +1,10 @@
-const signUpStorage = new Storage("sign-up-data", JSON.parse(getValueFromCache("sign-up-data")));
 const contactStorage = new Storage("contact-data", JSON.parse(getValueFromCache("contact-data")));
-
+let signUpEntity;
+let signUpStorage;
 
 function handleSignUp(e) {
     handleInputTemplate(e, function(_) {
-        const signUpEntity = new Contestant({
+         signUpEntity = new Contestant({
             _studentId: getValueFromInputElement("sID"),
             _firstName: getValueFromInputElement("firstName"),
             _lastName: getValueFromInputElement("lastName"),
@@ -18,9 +18,19 @@ function handleSignUp(e) {
         });
 
         if (signUpEntity.isValid()) {
-            signUpStorage.add(signUpEntity);
-            alert("Sign up sucessfully!");
-            signUpStorage.saveToCache();
+            signUpStorage = new Storage({
+                _studentId: getValueFromInputElement("sID"),
+                _firstName: getValueFromInputElement("firstName"),
+                _lastName: getValueFromInputElement("lastName"),
+                _gender: getValueFromInputElement("gender"),
+                _dob: getValueFromInputElement("birthday"),
+                _experience: getValueFromInputElement("background"),
+                _reason: getValueFromInputElement("reason"),
+                _other: getValueFromInputElement("extra"),
+                _team: null,
+                _member: null,
+            });
+            alert("Sign up sucessful!");
         }
     })
 }
@@ -88,11 +98,15 @@ function initMatrix() {
                 _handleFunction:
                     function() {
                         alert(`click on slot: team-${team}-member-${memberOrder}`);
-                        if (signUpStorage.m_name != null) {
+                        if (signUpStorage.getId != null) {
                             // Enter names onto team page
+                            signUpStorage.assignTeam(team, memberOrder);
+                            alert(signUpStorage.getId() + ", " + signUpStorage.getTeam() + ", " + 
+                                signUpStorage.getMember() + ", " + getMatrixSlot(team, memberOrder));
+
                         }
                     }
-            })
+            });
         }
     }
 }

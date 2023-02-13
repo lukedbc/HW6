@@ -27,14 +27,10 @@ class Contestant {
         this.m_member = _member;
     }
     
-    assignTeam() {
-        this.m_team = team;
-        this.m_memberOrder = memberOrder;
+    getId() {
+        return this.m_id;
     }
     
-    publishSignatureDish() {
-        
-    }
 }
 
 
