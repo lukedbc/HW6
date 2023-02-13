@@ -17,6 +17,7 @@ class Contestant {
         this.m_studentId = _studentId;
         this.m_firstName = _firstName;
         this.m_lastName = _lastName;
+        this.m_name = _firstName + " " + _lastName;
         this.m_gender = _gender;
         this.m_dob = _dob;
         this.m_experience = _experience;
@@ -26,9 +27,31 @@ class Contestant {
         this.m_team = _team;
         this.m_member = _member;
     }
-    
+
     getId() {
         return this.m_id;
+    }
+
+    getName() {
+        return this.m_firstName + " " + this.m_lastName;
+    }
+    
+    assignTeam(team, memberOrder) {
+        this.m_team = team;
+        this.m_member = memberOrder;
+        assignMatrixSlot(this.m_name, team, memberOrder);
+    }
+
+    getTeam() {
+        return this.m_team;
+    }
+
+    getMember() {
+        return this.m_member;
+    }
+    
+    publishSignatureDish() {
+        
     }
     
 }

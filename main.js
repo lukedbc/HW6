@@ -1,6 +1,7 @@
+const signUpStorage = new Storage("sign-up-data", JSON.parse(getValueFromCache("sign-up-data")));
 const contactStorage = new Storage("contact-data", JSON.parse(getValueFromCache("contact-data")));
 let signUpEntity;
-let signUpStorage;
+let currentSignUpEntity;
 
 function handleSignUp(e) {
     handleInputTemplate(e, function(_) {
@@ -18,19 +19,10 @@ function handleSignUp(e) {
         });
 
         if (signUpEntity.isValid()) {
-            signUpStorage = new Storage({
-                _studentId: getValueFromInputElement("sID"),
-                _firstName: getValueFromInputElement("firstName"),
-                _lastName: getValueFromInputElement("lastName"),
-                _gender: getValueFromInputElement("gender"),
-                _dob: getValueFromInputElement("birthday"),
-                _experience: getValueFromInputElement("background"),
-                _reason: getValueFromInputElement("reason"),
-                _other: getValueFromInputElement("extra"),
-                _team: null,
-                _member: null,
-            });
+            signUpStorage.add(signUpEntity);
+            currentSignUpEntity = signUpEntity;
             alert("Sign up sucessful!");
+            signUpStorage.saveToCache();
         }
     })
 }
@@ -98,12 +90,13 @@ function initMatrix() {
                 _handleFunction:
                     function() {
                         alert(`click on slot: team-${team}-member-${memberOrder}`);
-                        if (signUpStorage.getId != null) {
-                            // Enter names onto team page
-                            signUpStorage.assignTeam(team, memberOrder);
-                            alert(signUpStorage.getId() + ", " + signUpStorage.getTeam() + ", " + 
-                                signUpStorage.getMember() + ", " + getMatrixSlot(team, memberOrder));
 
+                        if (currentSignUpEntity.getId != null && getMatrixSlot(team, memberOrder) == "Available to join") {
+                            // Enter names onto team page
+                            currentSignUpEntity.assignTeam(team, memberOrder);
+                            getElement("team-"+team+"-member-"+memberOrder).innerText = 
+                                currentSignUpEntity.m_name;
+                            
                         }
                     }
             });
