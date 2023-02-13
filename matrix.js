@@ -1,10 +1,11 @@
 const NUMBER_OF_TEAM = 3;
 const NUMBER_MEMEBER_EACH_TEAM = 5;
 let memberSlot = [
-    ["Available to join", "Available to join", "Available to join", "Available to join", "Available to join"],
-    ["Available to join", "Available to join", "Available to join", "Available to join", "Available to join"],
-    ["Available to join", "Available to join", "Available to join", "Available to join", "Available to join"]
+    [{text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}],
+    [{text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}],
+    [{text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}]
 ];
+
 
 function drawMatrixTo(elementId) {
     let element = getElement(elementId);
@@ -30,7 +31,7 @@ function drawMatrixTo(elementId) {
             td.setAttribute("id", "team-" + j + "-member-" + i);
 
             
-            td.innerText = memberSlot[j - 1][i - 1];
+            td.innerText = memberSlot[j - 1][i - 1].text;
             
             row.appendChild(td);
         }
@@ -43,11 +44,17 @@ function drawMatrixTo(elementId) {
 }
 
 function assignMatrixSlot(name, team, memberOrder) {
-    memberSlot[team][memberOrder] = name;
+    memberSlot[team - 1][memberOrder - 1].text = name;
+    memberSlot[team -1][memberOrder - 1].slotTaken = true;
 }
 
 function getMatrixSlot(team, memberOrder) {
-    return memberSlot[team][memberOrder];
+    return memberSlot[team - 1][memberOrder - 1].text;
+}
+
+function isTaken(team, memberOrder) {
+    if (memberSlot[team -1][memberOrder - 1].slotTaken == true) return true;
+    else return false;
 }
 
 function addEventToSlot({

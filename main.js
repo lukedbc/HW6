@@ -91,7 +91,7 @@ function initMatrix() {
                     function() {
                         alert(`click on slot: team-${team}-member-${memberOrder}`);
 
-                        if (currentSignUpEntity.getId != null && getMatrixSlot(team, memberOrder) == "Available to join") {
+                        if (currentSignUpEntity.getId != null && !isTaken(team, memberOrder)) {
                             // Enter names onto team page
                             currentSignUpEntity.assignTeam(team, memberOrder);
                             getElement("team-"+team+"-member-"+memberOrder).innerText = 
