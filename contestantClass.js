@@ -35,7 +35,7 @@ class Contestant {
     getName() {
         return this.m_firstName + " " + this.m_lastName;
     }
-    
+
     assignTeam(team, memberOrder) {
         this.m_team = team;
         this.m_member = memberOrder;
@@ -49,13 +49,28 @@ class Contestant {
     getMember() {
         return this.m_member;
     }
-    
+
     publishSignatureDish() {
-        
+
     }
-    
+
 }
 
+function makeContestantFromCache(cache) {
+    return new Contestant({
+        _id: cache.m_id,
+        _studentId: cache.m_studentId,
+        _firstName: cache.m_firstName,
+        _lastName: cache.m_lastName,
+        _gender: cache.m_gender,
+        _dob: cache.m_dob,
+        _experience: cache.m_experience,
+        _reason: cache.m_reason,
+        _other: cache.m_other,
+        _team: cache.m_team,
+        _member: cache.m_member,
+    })
+}
 
 Contestant.prototype.isValid = function() {
 

@@ -27,7 +27,7 @@
                     <li><a href="#sign-up">Sign up</a></li>
                     <li><a href="#join-a-team">Join a team</a></li>
                     <li><a href="#signature-dishes">Signature Dishes</a></li>
-                    <!-- <li><a href="#dashboard">Dashboard</a></li> -->
+                    <li><a href="#dashboard">Dashboard</a></li>
                     <!-- <li><a href="#contact-us">Contact Us</a></li> -->
                 </ul>
             </div><!-- /navbar -->
@@ -35,6 +35,13 @@
 
         <!-- content -->
         <div data-role="content" data-theme='e' class="container-full">
+            <div>
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div style="flex: 50%" class="signInInfo">
+                    </div>
+                </div>
+            </div>
+            </br>
             <div class="container-top">
                 <div class="home-title">
                     <h3>Welcome to Bellevue College's Cooking Competition!</h3>
@@ -119,7 +126,7 @@
                     <li><a href="#sign-up">Sign up</a></li>
                     <li><a href="#join-a-team">Join a team</a></li>
                     <li><a href="#signature-dishes">Signature Dishes</a></li>
-                    <!-- <li><a href="#dashboard">Dashboard</a></li> -->
+                    <li><a href="#dashboard">Dashboard</a></li>
                     <!-- <li><a href="#contact-us">Contact Us</a></li> -->
                 </ul>
             </div><!-- /navbar -->
@@ -129,7 +136,29 @@
 
         <!-- =================================== -->
         <!-- content -->
-        <div data-role="content" data-theme='e'>
+        <div data-role="content" data-theme='e' id="sign-up-content">
+            <div>
+                <div style="display: flex; flex-wrap: wrap;">
+                    <a style="flex: 50%" href="#sign-in-popup" data-rel="popup" data-transition="pop">Already signed
+                        up?</a>
+                    <div data-role="popup" id="sign-in-popup">
+                        <div role="main" class="ui-content">
+                            <form id="sign-in">
+                                <label for="si_sID">Student ID</label>
+                                <input type="number" id="si_sID"><br>
+                                <label for="si_firstName">First Name</label>
+                                <input type="text" id="si_firstName"><br>
+                                <label for="si_lastName">Last Name</label>
+                                <input type="text" id="si_lastName"><br>
+                                <input type="submit" value="Sign in" id="sign-in-btn">
+                            </form>
+                        </div>
+                    </div>
+                    <div style="flex: 50%" class="signInInfo">
+                    </div>
+                </div>
+            </div>
+            </br>
             <form id="sign-up">
                 <label for="sID">Student ID</label>
                 <input type="number" id="sID"><br>
@@ -187,7 +216,7 @@
                     <li><a href="#sign-up">Sign up</a></li>
                     <li><a href="#join-a-team">Join a team</a></li>
                     <li><a href="#signature-dishes">Signature Dishes</a></li>
-                    <!-- <li><a href="#dashboard">Dashboard</a></li> -->
+                    <li><a href="#dashboard">Dashboard</a></li>
                     <!-- <li><a href="#contact-us">Contact Us</a></li> -->
                 </ul>
             </div><!-- /navbar -->
@@ -196,8 +225,13 @@
 
         <!-- =================================== -->
         <!-- content -->
-        <div data-role="content" data-theme='e'>
-            <div id="join-a-team-content">
+        <div data-role="content" data-theme='e' id="join-a-team-content">
+            <div style="display: flex; justify-content: flex-end">
+                <div class="signInInfo">
+                </div>
+            </div>
+            </br>
+            <div id="join-a-team-content-matrix">
             </div>
 
         </div>
@@ -210,7 +244,6 @@
 
     <!-- ======================================================================================== -->
     <div data-role="page" id="signature-dishes">
-
         <!-- =================================== -->
         <!-- header -->
         <div data-role="header" data-theme='b'>
@@ -223,7 +256,7 @@
                     <li><a href="#sign-up">Sign up</a></li>
                     <li><a href="#join-a-team">Join a team</a></li>
                     <li><a href="#signature-dishes">Signature Dishes</a></li>
-                    <!-- <li><a href="#dashboard">Dashboard</a></li> -->
+                    <li><a href="#dashboard">Dashboard</a></li>
                     <!-- <li><a href="#contact-us">Contact Us</a></li> -->
                 </ul>
             </div><!-- /navbar -->
@@ -232,7 +265,14 @@
 
         <!-- =================================== -->
         <!-- content -->
-        <div data-role="content" data-theme='e'>
+        <div data-role="content" data-theme='e' id="signature-dishes-content">
+            <div>
+                <div style="display: flex; justify-content: flex-end">
+                    <div class="signInInfo">
+                    </div>
+                </div>
+            </div>
+            </br>
             <div>
                 <button class="ui-btn ui-corner-all">Your dishes</button>
                 <ul id="dishes-list">
@@ -283,7 +323,7 @@
                     <li><a href="#join-a-team">Join a team</a></li>
                     <li><a href="#signature-dishes">Signature Dishes</a></li>
                     <li><a href="#dashboard">Dashboard</a></li>
-                    <li><a href="#contact-us">Contact Us</a></li>
+                    <!-- <li><a href="#contact-us">Contact Us</a></li> -->
                 </ul>
             </div><!-- /navbar -->
         </div>
@@ -291,7 +331,14 @@
 
         <!-- =================================== -->
         <!-- content -->
-        <div data-role="content" data-theme='e'>
+        <div data-role="content" data-theme='e' id="dashboard-content">
+            <div>
+                <div style="display: flex; justify-content: flex-end">
+                    <div class="signInInfo">
+                    </div>
+                </div>
+            </div>
+            </br>
             <div>
                 <button class="ui-btn ui-corner-all" id="sign-up-list-btn">Sign up list</button>
                 <ul id="sign-up-list" />
@@ -299,6 +346,36 @@
             <div>
                 <button class="ui-btn ui-corner-all" id="contact-list-btn">Contact list</button>
                 <ul id="contact-list" />
+            </div>
+
+            <div data-role="popup" id="popup-sign-in-info">
+                <label for="one_sID">Student ID</label>
+                <input type="number" id="one_sID" readonly><br>
+                <label for="one_firstName">First Name</label>
+                <input type="text" id="one_firstName" readonly><br>
+                <label for="one_lastName">Last Name</label>
+                <input type="text" id="one_lastName" readonly><br>
+                <label for="one_major">Major</label>
+                <input type="text" id="one_major" readonly><br>
+                <label for="one_gender">Gender</label>
+                <input type="text" id="one_gender" readonly><br>
+                <label for="one_birthday">Date of Birth</label>
+                <input type="date" id="one_birthday" readonly>
+                <label for="one_background">What kind of cooking experience do you have?</label>
+                <textarea id="one_background" readonly></textarea>
+                <label for="one_reason">Why do you want to be considered for this competition?</label>
+                <textarea id="one_reason" readonly></textarea>
+                <label for="one_extra">Is there anything else we should know about you that's not mentioned
+                    above?</label>
+                <textarea id="one_extra" readonly></textarea><br>
+            </div>
+            <div data-role="popup" id="popup-contact-info">
+                <label for="one_name">Name</label>
+                <input type="text" id="one_name" readonly><br>
+                <label for="one_email">Email</label>
+                <input type="text" id="one_email" readonly><br>
+                <label for="one_message">Message</label>
+                <input type="text" id="one_message" readonly><br>
             </div>
         </div>
         <!-- =================================== -->
