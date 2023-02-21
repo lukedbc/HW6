@@ -274,7 +274,7 @@
             </div>
             </br>
             <div>
-                <button class="ui-btn ui-corner-all">Your dishes</button>
+                <button id="your-dishes-btn" class="ui-btn ui-corner-all">Your dishes</button>
                 <ul id="dishes-list">
             </div>
             <div>
@@ -283,7 +283,7 @@
                     <input type="text" id="title"><br>
 
                     <label for="picture">Picture</label>
-                    <input type="text" id="picture"><br>
+                    <input type="file" id="picture" name="picture"><br>
 
                     <label for="dishes-difficulty">Difficulty</label>
                     <select name="difficulty" id="dishes-difficulty">
@@ -296,8 +296,11 @@
                     <textarea id="description"></textarea>
                     <label for="recipe">Recipe</label>
                     <textarea id="recipe"></textarea>
-                    <button class="ui-btn ui-corner-all">Add</button>
+                    <button id="add-recipe-btn" class="ui-btn ui-corner-all">Add</button>
                 </form>
+            </div>
+            <div id="dish-display">
+
             </div>
         </div>
         <!-- notes footer -->
@@ -446,6 +449,7 @@
     <script src="helper.js"></script>
     <script src="contestantClass.js"></script>
     <script src="contact-entity.js"></script>
+    <script src="contactDish.js"></script>
     <script src="storage.js"></script>
     <script src="matrix.js"></script>
     <script src="main.js"></script>

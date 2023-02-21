@@ -1,6 +1,6 @@
 class Contestant {
     constructor({
-        _id = generateId(),
+        _id = Math.random().toString(16).slice(5),
         _studentId,
         _firstName,
         _lastName,
@@ -11,7 +11,8 @@ class Contestant {
         _other,
         _createdDate = new Date(),
         _team,
-        _member
+        _member,
+        _dishes = new Array()
     }) {
         this.m_id = _id;
         this.m_studentId = _studentId;
@@ -26,6 +27,7 @@ class Contestant {
         this.m_createdDate = _createdDate;
         this.m_team = _team;
         this.m_member = _member;
+        this.m_dishes = _dishes;
     }
 
     getId() {
@@ -39,7 +41,7 @@ class Contestant {
     assignTeam(team, memberOrder) {
         this.m_team = team;
         this.m_member = memberOrder;
-        assignMatrixSlot(this.m_name, team, memberOrder);
+        assignMatrixSlot(this.m_id, this.m_name, team, memberOrder);
     }
 
     getTeam() {
@@ -50,10 +52,17 @@ class Contestant {
         return this.m_member;
     }
 
-    publishSignatureDish() {
-
+    publishSignatureDish(e) {
+        this.m_dishes.push(e);
     }
 
+    getSignatureDish(e) {
+        return this.m_dishes[e];
+    }
+
+    getSignatureDishAmount() {
+        return this.m_dishes.length;
+    }
 }
 
 function makeContestantFromCache(cache) {

@@ -1,9 +1,15 @@
 const authorizeUrl = ["#join-a-team", "#signature-dishes", "#dashboard"]
 const signUpStorage = new Storage("sign-up-data", JSON.parse(getValueFromCache("sign-up-data")));
 const contactStorage = new Storage("contact-data", JSON.parse(getValueFromCache("contact-data")));
+const dishStorage = new Storage("picture-data", JSON.parse(getValueFromCache("picture-data")));
+
 
 let currentSignUpEntity;
+let currentDishes = new Array();
 let signInFlag = false;
+let dishPictureShow = false;
+let dishesList = document.getElementById("dishes-list");
+
 
 function toggleContent({ show }) {
     if (show === true) {
@@ -52,6 +58,39 @@ function handleSignUp(e) {
     })
 }
 
+function handleAddDish(e) {
+    handleInputTemplate(e, function(_) {
+        let dish = new ContactDish({
+            _id: currentSignUpEntity.getId(),
+            _title: getValueFromInputElement("title"),
+            _picture: document.getElementById("picture").files[0],
+            _difficulty: getValueFromInputElement("dishes-difficulty"),
+            _description: getValueFromInputElement("description"),
+            _recipe: getValueFromInputElement("recipe")
+        });
+
+        if (dish.isValid()) {
+            currentSignUpEntity.publishSignatureDish(dish.getPicture());
+            alert("Your signature dish has been published!");
+            dishStorage.add(dish);
+            dishStorage.saveToCache();
+            var img = new Image();
+            img.src = dish.getPicture().src;
+            document.getElementById("dishes-list").appendChild(img);
+        }
+    })
+}
+
+function handleShowDish(_) {
+    if (dishPictureShow == false) {
+        dishesList.style= "display: block;";
+        dishPictureShow = true;
+    } else {
+        dishesList.style= "display: none;";
+        dishPictureShow = false;
+    }
+}
+
 function handleContact(e) {
     handleInputTemplate(e, function(_) {
         let contact = new ContactEntity({
@@ -62,7 +101,7 @@ function handleContact(e) {
 
         if (contact.isValid()) {
             contactStorage.add(contact);
-            alert("Received your message!")
+            alert("Received your message!");
             contactStorage.saveToCache();
         }
     })
@@ -178,14 +217,18 @@ function initMatrix() {
                 _memberOrder: memberOrder,
                 _handleFunction:
                     function() {
-                        alert(`click on slot: team-${team}-member-${memberOrder}`);
-
-                        if (currentSignUpEntity.getId() != null && !isTaken(team, memberOrder)) {
-                            // Enter names onto team page
-                            currentSignUpEntity.assignTeam(team, memberOrder);
-                            getElement("team-" + team + "-member-" + memberOrder).innerText =
-                                currentSignUpEntity.m_name;
-
+                        // Enter names onto team page
+                        if (currentSignUpEntity.getTeam() == null) {
+                            if (currentSignUpEntity.getId() != null && !isTaken(team, memberOrder)) {
+                                currentSignUpEntity.assignTeam(team, memberOrder);
+                                getElement("team-" + team + "-member-" + memberOrder).innerText =
+                                    currentSignUpEntity.m_name;
+                                alert("Sign up successful!");
+                            } else {
+                                alert("This spot is taken!");
+                            }
+                        } else {
+                            alert("You've already signed up!");
                         }
                     }
             });
@@ -220,6 +263,10 @@ document.addEventListener("DOMContentLoaded", function(_) {
 
     getElement("sign-up-list-btn").addEventListener("click", handleSignUpListBtn);
     getElement("contact-list-btn").addEventListener("click", handleContactListBtn);
+
+    getElement("add-recipe-btn").addEventListener("click", handleAddDish);
+    getElement("your-dishes-btn").addEventListener("click", handleShowDish);
+    dishesList.style= "display: none;";
 });
 
 window.addEventListener("hashchange", function(_) {

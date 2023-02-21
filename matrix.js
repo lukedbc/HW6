@@ -43,7 +43,8 @@ function drawMatrixTo(elementId) {
     element.appendChild(table);
 }
 
-function assignMatrixSlot(name, team, memberOrder) {
+function assignMatrixSlot(id, name, team, memberOrder) {
+    memberSlot[team - 1][memberOrder - 1].contestant_id = id;
     memberSlot[team - 1][memberOrder - 1].text = name;
     memberSlot[team -1][memberOrder - 1].slotTaken = true;
 }
