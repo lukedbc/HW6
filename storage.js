@@ -20,6 +20,10 @@ Storage.prototype.getLast = function() {
     return this.m_data[this.m_data.length - 1];
 }
 
+Storage.prototype.getLength = function() {
+    return this.m_data.length;
+}
+
 Storage.prototype.getName = function() {
     return this.m_name;
 }
@@ -42,5 +46,6 @@ Storage.prototype.syncWithCache = function() {
 }
 
 Storage.prototype.clearAll = function() {
-    m_data = [];
+    this.m_data = [];
+    putValueToCache
 }

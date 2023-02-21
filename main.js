@@ -211,7 +211,7 @@ function handleInputTemplate(e, handleFunction) {
 
 function initMatrix() {
     matrixStorage.syncWithCache();
-    if (matrixStorage.getAll() != []) {
+    if (matrixStorage.getLength() != 0) {
         assignAllMatrix(matrixStorage.getLast());
     }
     
@@ -263,6 +263,7 @@ function checkSignInStatus() {
 }
 
 document.addEventListener("DOMContentLoaded", function(_) {
+    console.log(matrixStorage.getAll());
     checkSignInStatus();
     initMatrix();
     getElement("sign-up-btn").addEventListener("click", handleSignUp);
