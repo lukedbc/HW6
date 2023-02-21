@@ -16,6 +16,10 @@ Storage.prototype.getAll = function() {
     return this.m_data;
 }
 
+Storage.prototype.getLast = function() {
+    return this.m_data[this.m_data.length - 1];
+}
+
 Storage.prototype.getName = function() {
     return this.m_name;
 }

@@ -2,6 +2,7 @@ const authorizeUrl = ["#join-a-team", "#signature-dishes", "#dashboard"]
 const signUpStorage = new Storage("sign-up-data", JSON.parse(getValueFromCache("sign-up-data")));
 const contactStorage = new Storage("contact-data", JSON.parse(getValueFromCache("contact-data")));
 const dishStorage = new Storage("picture-data", JSON.parse(getValueFromCache("picture-data")));
+const matrixStorage = new Storage("matrix-data", JSON.parse(getValueFromCache("matrix-data")));
 
 
 let currentSignUpEntity;
@@ -209,6 +210,11 @@ function handleInputTemplate(e, handleFunction) {
 }
 
 function initMatrix() {
+    matrixStorage.syncWithCache();
+    if (matrixStorage.getAll() != []) {
+        assignAllMatrix(matrixStorage.getLast());
+    }
+    
     drawMatrixTo("join-a-team-content-matrix");
     for (let memberOrder = 1; memberOrder <= NUMBER_MEMEBER_EACH_TEAM; memberOrder++) {
         for (let team = 1; team <= NUMBER_OF_TEAM; team++) {
@@ -224,6 +230,8 @@ function initMatrix() {
                                 getElement("team-" + team + "-member-" + memberOrder).innerText =
                                     currentSignUpEntity.m_name;
                                 alert("Sign up successful!");
+                                matrixStorage.add(getAllMatrix());
+                                matrixStorage.saveToCache();
                             } else {
                                 alert("This spot is taken!");
                             }

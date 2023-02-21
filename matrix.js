@@ -53,6 +53,14 @@ function getMatrixSlot(team, memberOrder) {
     return memberSlot[team - 1][memberOrder - 1].text;
 }
 
+function assignAllMatrix(e) {
+    memberSlot = e;
+}
+
+function getAllMatrix() {
+    return memberSlot;
+}
+
 function isTaken(team, memberOrder) {
     if (memberSlot[team -1][memberOrder - 1].slotTaken == true) return true;
     else return false;
