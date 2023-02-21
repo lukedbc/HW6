@@ -77,8 +77,8 @@ function makeContestantFromCache(cache) {
         _reason: cache.m_reason,
         _other: cache.m_other,
         _team: cache.m_team,
-        _member: cache.m_member,
-    })
+        _member: cache.m_member
+    });
 }
 
 Contestant.prototype.isValid = function() {

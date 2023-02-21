@@ -125,6 +125,7 @@ function handleSignIn(e) {
 
             signInFlag = true;
             window.location = "#join-a-team";
+            console.log(`${currentSignUpEntity.getId()}, ${currentSignUpEntity.getName()}, ${currentSignUpEntity.getTeam()}, ${currentSignUpEntity.getMember()}`);
             return;
         }
         alert("No Registration Record Found");
@@ -135,6 +136,13 @@ function findSignUp(data, studentId) {
 
     return data.find(function(signUpData) {
         return signUpData.m_studentId == studentId;
+    });
+}
+
+function findUserId(data, userId) {
+
+    return data.find(function(signUpData) {
+        return signUpData.m_id == userId;
     });
 }
 
@@ -224,7 +232,7 @@ function initMatrix() {
                 _handleFunction:
                     function() {
                         // Enter names onto team page
-                        if (currentSignUpEntity.getTeam() == null) {
+                        if (currentSignUpEntity.getTeam() == null && !signedUpId(currentSignUpEntity)) {
                             if (currentSignUpEntity.getId() != null && !isTaken(team, memberOrder)) {
                                 currentSignUpEntity.assignTeam(team, memberOrder);
                                 getElement("team-" + team + "-member-" + memberOrder).innerText =

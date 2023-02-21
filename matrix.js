@@ -53,6 +53,18 @@ function getMatrixSlot(team, memberOrder) {
     return memberSlot[team - 1][memberOrder - 1].text;
 }
 
+function signedUpId(currentId) {
+    for (i = 0; i < NUMBER_MEMEBER_EACH_TEAM; i++) {
+        for (j = 0; j < NUMBER_OF_TEAM; j++) {
+            if (currentId.getId() == memberSlot[i][j].contestant_id) {
+                console.log(memberSlot[i][j].contestant_id);
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 function assignAllMatrix(e) {
     memberSlot = e;
 }
