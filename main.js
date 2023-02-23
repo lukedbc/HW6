@@ -240,6 +240,7 @@ function initMatrix() {
                                 alert("Sign up successful!");
                                 matrixStorage.add(getAllMatrix());
                                 matrixStorage.saveToCache();
+                                console.log(matrixStorage.getAll());
                             } else {
                                 alert("This spot is taken!");
                             }
