@@ -14,6 +14,8 @@ function ContactDish ({
     this.m_recipe = _recipe;
 }
 
+
+
 ContactDish.prototype.getPicture = function() {
     return this.m_picture;
 }

@@ -75,11 +75,29 @@ function handleAddDish(e) {
             alert("Your signature dish has been published!");
             dishStorage.add(dish);
             dishStorage.saveToCache();
-            var img = new Image();
-            img.src = dish.getPicture().src;
-            document.getElementById("dishes-list").appendChild(img);
+
+            handleExportDish(dish);
+
+            // Updates current user within signUpStorage to include picture
+            let storageIndex = signUpStorage.getIndexOfId(currentSignUpEntity.getId());
+            console.log(storageIndex);
+            signUpStorage.remove(storageIndex);
+            signUpStorage.add(currentSignUpEntity);
+            signUpStorage.saveToCache();
         }
     })
+}
+
+function handleExportDish(dish) {
+    var reader  = new FileReader();
+
+    reader.onload = function(e)  {
+        var image = document.createElement("img");
+        image.src = e.target.result;
+        document.getElementById("dishes-list").appendChild(image);
+    }
+
+    reader.readAsDataURL(dish.getPicture());
 }
 
 function handleShowDish(_) {
@@ -136,13 +154,6 @@ function findSignUp(data, studentId) {
 
     return data.find(function(signUpData) {
         return signUpData.m_studentId == studentId;
-    });
-}
-
-function findUserId(data, userId) {
-
-    return data.find(function(signUpData) {
-        return signUpData.m_id == userId;
     });
 }
 
@@ -273,6 +284,7 @@ function checkSignInStatus() {
 
 document.addEventListener("DOMContentLoaded", function(_) {
     console.log(matrixStorage.getAll());
+    console.log(signUpStorage.getAll());
     checkSignInStatus();
     initMatrix();
     getElement("sign-up-btn").addEventListener("click", handleSignUp);

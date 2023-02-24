@@ -24,12 +24,23 @@ Storage.prototype.getLength = function() {
     return this.m_data.length;
 }
 
+Storage.prototype.getIndexOfId = function(value) {
+    for (i = 0; i < this.m_data.length; i++) {
+        if (this.m_data[i].m_id == value) return i;
+    }
+    return -1;
+}
+
 Storage.prototype.getName = function() {
     return this.m_name;
 }
 
 Storage.prototype.add = function(value) {
     this.m_data.push(value);
+}
+
+Storage.prototype.remove = function(index) {
+    this.m_data.splice(index, 1);
 }
 
 Storage.prototype.saveToCache = function() {
@@ -47,5 +58,4 @@ Storage.prototype.syncWithCache = function() {
 
 Storage.prototype.clearAll = function() {
     this.m_data = [];
-    putValueToCache
 }
