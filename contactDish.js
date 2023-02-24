@@ -1,5 +1,6 @@
-function ContactDish ({
-    _id,
+function ContactDish({
+    _id = generateId(),
+    _contestantId,
     _title,
     _picture,
     _difficulty,
@@ -7,6 +8,7 @@ function ContactDish ({
     _recipe
 }) {
     this.m_id = _id;
+    this.m_contestantId = _contestantId;
     this.m_title = _title;
     this.m_picture = _picture;
     this.m_difficulty = _difficulty;
@@ -22,23 +24,26 @@ ContactDish.prototype.getPicture = function() {
 
 ContactDish.prototype.isValid = function() {
     if (isEmpty(this.m_title)) {
-        throw new Error ("Missing Title");
+        throw new Error("Missing Title");
+    }
+    if (isEmpty(this.m_contestantId)) {
+        throw new Error("Missing Contestant Id");
     }
 
     if (isEmpty(this.m_picture)) {
-        throw new Error ("Missing Picture");
+        throw new Error("Missing Picture");
     }
 
     if (isEmpty(this.m_difficulty)) {
-        throw new Error ("Missing Difficulty");
+        throw new Error("Missing Difficulty");
     }
 
     if (isEmpty(this.m_description)) {
-        throw new Error ("Missing Description");
+        throw new Error("Missing Description");
     }
 
     if (isEmpty(this.m_recipe)) {
-        throw new Error ("Missing Recipe");
+        throw new Error("Missing Recipe");
     }
     return true;
 }

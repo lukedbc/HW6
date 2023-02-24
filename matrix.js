@@ -1,11 +1,5 @@
 const NUMBER_OF_TEAM = 3;
-const NUMBER_MEMEBER_EACH_TEAM = 5;
-let memberSlot = [
-    [{text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}],
-    [{text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}],
-    [{text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}, {text:"Available to join", slotTaken:false, contestant_id:0}]
-];
-
+const NUMBER_MEMBER_EACH_TEAM = 5;
 
 function drawMatrixTo(elementId) {
     let element = getElement(elementId);
@@ -24,18 +18,15 @@ function drawMatrixTo(elementId) {
     }
     table.appendChild(teamRow);
 
-    for (let i = 1; i <= NUMBER_MEMEBER_EACH_TEAM; i++) {
+    for (let i = 1; i <= NUMBER_MEMBER_EACH_TEAM; i++) {
         let row = document.createElement("tr");
         for (let j = 1; j <= NUMBER_OF_TEAM; j++) {
             let td = document.createElement("td");
             td.setAttribute("id", "team-" + j + "-member-" + i);
+            td.innerText = "Available to join";
 
-            
-            td.innerText = memberSlot[j - 1][i - 1].text;
-            
             row.appendChild(td);
         }
-
 
         table.appendChild(row);
     }
@@ -43,39 +34,13 @@ function drawMatrixTo(elementId) {
     element.appendChild(table);
 }
 
-function assignMatrixSlot(id, name, team, memberOrder) {
-    memberSlot[team - 1][memberOrder - 1].contestant_id = id;
-    memberSlot[team - 1][memberOrder - 1].text = name;
-    memberSlot[team -1][memberOrder - 1].slotTaken = true;
-}
-
-function getMatrixSlot(team, memberOrder) {
-    return memberSlot[team - 1][memberOrder - 1].text;
-}
-
-function signedUpId(currentId) {
-    for (i = 0; i < NUMBER_MEMEBER_EACH_TEAM; i++) {
-        for (j = 0; j < NUMBER_OF_TEAM; j++) {
-            if (currentId.getId() == memberSlot[j][i].contestant_id) {
-                console.log(memberSlot[j][i].contestant_id);
-                return true;
-            }
+function updateWithMemberSlot(memberSlot) {
+    const data = memberSlot.m_data;
+    for (let i = 0, numberOfTeam = data.length; i < numberOfTeam; i++) {
+        for (let j = 0, numberOfMemberEachTeam = data[i].length; j < numberOfMemberEachTeam; j++) {
+            getElement("team-" + (i + 1) + "-member-" + (j + 1)).innerText = data[i][j].m_text;
         }
     }
-    return false;
-}
-
-function assignAllMatrix(e) {
-    memberSlot = e;
-}
-
-function getAllMatrix() {
-    return memberSlot;
-}
-
-function isTaken(team, memberOrder) {
-    if (memberSlot[team -1][memberOrder - 1].slotTaken == true) return true;
-    else return false;
 }
 
 function addEventToSlot({

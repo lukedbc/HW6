@@ -14,7 +14,7 @@ function parseStringToFloat(stringValue) {
 }
 
 function generateId() {
-    return "id_" + Math.random().toString(16).slice(2);
+    return Math.random().toString(16).slice(5);
 }
 
 function isEmpty(value) {

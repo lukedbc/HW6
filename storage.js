@@ -16,9 +16,10 @@ Storage.prototype.getAll = function() {
     return this.m_data;
 }
 
-Storage.prototype.getLast = function() {
-    return this.m_data[this.m_data.length - 1];
+Storage.prototype.assignData = function(data) {
+    this.m_data = data;
 }
+
 
 Storage.prototype.getLength = function() {
     return this.m_data.length;
@@ -56,6 +57,27 @@ Storage.prototype.syncWithCache = function() {
     }
 }
 
+Storage.prototype.syncWithCacheByConverter = function(converter) {
+    let cache = getValueFromCache(this.m_name);
+    if (cache) {
+        this.m_data = converter(JSON.parse(cache));
+    } else {
+        this.m_data = [];
+    }
+}
+
 Storage.prototype.clearAll = function() {
     this.m_data = [];
 }
+
+Storage.prototype.find = function(filter) {
+    return this.m_data.find(function(each) {
+        return filter(each);
+    });
+}
+Storage.prototype.filter = function(filter) {
+    return this.m_data.filter(function(each) {
+        return filter(each);
+    });
+}
+

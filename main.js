@@ -1,16 +1,15 @@
 const authorizeUrl = ["#join-a-team", "#signature-dishes", "#dashboard"]
 const signUpStorage = new Storage("sign-up-data", JSON.parse(getValueFromCache("sign-up-data")));
 const contactStorage = new Storage("contact-data", JSON.parse(getValueFromCache("contact-data")));
-const dishStorage = new Storage("picture-data", JSON.parse(getValueFromCache("picture-data")));
-const matrixStorage = new Storage("matrix-data", JSON.parse(getValueFromCache("matrix-data")));
+const dishStorage = new Storage("dish-data", JSON.parse(getValueFromCache("dish-data")));
 
+const memberSlotStorage = new Storage("member-slot-data", new MemberSlot({
+    _numberOfTeam: NUMBER_OF_TEAM,
+    _numberOfMemberEachTeam: NUMBER_MEMBER_EACH_TEAM
+}));
 
 let currentSignUpEntity;
-let currentDishes = new Array();
 let signInFlag = false;
-let dishPictureShow = false;
-let dishesList = document.getElementById("dishes-list");
-
 
 function toggleContent({ show }) {
     if (show === true) {
@@ -44,8 +43,6 @@ function handleSignUp(e) {
             _experience: getValueFromInputElement("background"),
             _reason: getValueFromInputElement("reason"),
             _other: getValueFromInputElement("extra"),
-            _team: null,
-            _member: null,
         });
 
         if (signUpEntity.isValid()) {
@@ -55,6 +52,9 @@ function handleSignUp(e) {
             alert("Sign up sucessful!");
             signUpStorage.saveToCache();
             toggleContent({ show: true });
+            getElement("dish-display").innerHTML = "";
+
+            window.location = "#join-a-team";
         }
     })
 }
@@ -62,52 +62,57 @@ function handleSignUp(e) {
 function handleAddDish(e) {
     handleInputTemplate(e, function(_) {
         let dish = new ContactDish({
-            _id: currentSignUpEntity.getId(),
+            _contestantId: currentSignUpEntity.getId(),
             _title: getValueFromInputElement("title"),
-            _picture: document.getElementById("picture").files[0],
+            _picture: getValueFromInputElement("picture"),
             _difficulty: getValueFromInputElement("dishes-difficulty"),
             _description: getValueFromInputElement("description"),
             _recipe: getValueFromInputElement("recipe")
         });
 
         if (dish.isValid()) {
-            currentSignUpEntity.publishSignatureDish(dish.getPicture());
-            alert("Your signature dish has been published!");
             dishStorage.add(dish);
             dishStorage.saveToCache();
+            alert("Your signature dish has been published!");
 
-            handleExportDish(dish);
-
-            // Updates current user within signUpStorage to include picture
-            let storageIndex = signUpStorage.getIndexOfId(currentSignUpEntity.getId());
-            console.log(storageIndex);
-            signUpStorage.remove(storageIndex);
-            signUpStorage.add(currentSignUpEntity);
-            signUpStorage.saveToCache();
+            getElement("title").value = "";
+            getElement("picture").value = "";
+            getElement("dishes-difficulty").value = "";
+            getElement("description").value = "";
+            getElement("recipe").value = "";
         }
     })
 }
 
-function handleExportDish(dish) {
-    var reader  = new FileReader();
-
-    reader.onload = function(e)  {
-        var image = document.createElement("img");
-        image.src = e.target.result;
-        document.getElementById("dishes-list").appendChild(image);
-    }
-
-    reader.readAsDataURL(dish.getPicture());
-}
-
 function handleShowDish(_) {
-    if (dishPictureShow == false) {
-        dishesList.style= "display: block;";
-        dishPictureShow = true;
-    } else {
-        dishesList.style= "display: none;";
-        dishPictureShow = false;
-    }
+    dishStorage.syncWithCache();
+    let dishesByUser = dishStorage.filter(function(dish) {
+        return dish.m_contestantId === currentSignUpEntity.m_id;
+    });
+
+    let gallery = getElement("dish-display");
+    gallery.innerHTML = "";
+    dishesByUser.forEach(function(dish) {
+        let div = document.createElement("div");
+        div.setAttribute("id", "dish-" + dish.m_id);
+        div.setAttribute("data-rel", "popup");
+        div.setAttribute("data-transition", "pop");
+        div.innerHTML = `
+            <a href="#image-pop-up" data-rel="popup" 
+                class="ui-btn ui-corner-all ui-shadow ui-btn-inline" 
+                data-position-to="window"
+                data-transition="pop">
+                <img src=${dish.m_picture} id="img-dish-${dish.m_id} width='400' height='300'"/>
+            </a>
+        `
+        div.addEventListener("click", function(e) {
+            getElement("one_dish_title").value = dish.m_title;
+            getElement("one_dish_difficulty").value = dish.m_difficulty;
+            getElement("one_dish_description").value = dish.m_description;
+            getElement("one_dish_recipe").value = dish.m_recipe;
+        });
+        gallery.appendChild(div);
+    });
 }
 
 function handleContact(e) {
@@ -135,7 +140,10 @@ function handleSignIn(e) {
             _lastName: getValueFromInputElement("si_lastName")
         };
 
-        let signInFromCache = findSignUp(signUpStorage.getAll(), signIn._studentId);
+        let signInFromCache = signUpStorage.find(function(signUp) {
+            return signUp.m_studentId === signIn._studentId;
+        });
+
         if (signInFromCache
             && signInFromCache.m_firstName === signIn._firstName
             && signInFromCache.m_lastName === signIn._lastName) {
@@ -143,17 +151,9 @@ function handleSignIn(e) {
 
             signInFlag = true;
             window.location = "#join-a-team";
-            console.log(`${currentSignUpEntity.getId()}, ${currentSignUpEntity.getName()}, ${currentSignUpEntity.getTeam()}, ${currentSignUpEntity.getMember()}`);
             return;
         }
         alert("No Registration Record Found");
-    });
-}
-
-function findSignUp(data, studentId) {
-
-    return data.find(function(signUpData) {
-        return signUpData.m_studentId == studentId;
     });
 }
 
@@ -161,8 +161,7 @@ function fillSignInInfoToPopup(model) {
     getElement("one_sID").value = model.m_studentId;
     getElement("one_firstName").value = model.m_firstName;
     getElement("one_lastName").value = model.m_lastName;
-    getElement("one_major").value = model.m_major;
-    getElement("one_gender").value = model.m_gender;
+    getElement("one_major").value = model.m_major; getElement("one_gender").value = model.m_gender;
     getElement("one_birthday").value = model.m_dob;
     getElement("one_background").value = model.m_experience;
     getElement("one_reason").value = model.m_reason;
@@ -229,34 +228,42 @@ function handleInputTemplate(e, handleFunction) {
 }
 
 function initMatrix() {
-    matrixStorage.syncWithCache();
-    if (matrixStorage.getLength() != 0) {
-        assignAllMatrix(matrixStorage.getLast());
-    }
-    
+
     drawMatrixTo("join-a-team-content-matrix");
-    for (let memberOrder = 1; memberOrder <= NUMBER_MEMEBER_EACH_TEAM; memberOrder++) {
+    // sync cache 
+    memberSlotStorage.syncWithCacheByConverter(function(rawStorage) {
+        let data = createMemberSlotFromCache(rawStorage.m_data);
+        let memberSlot = new MemberSlot({});
+        memberSlot.m_data = data;
+        return memberSlot;
+    });
+
+    if (memberSlotStorage.getAll().length === 0) {
+        memberSlotStorage.assignData(new MemberSlot({
+            _numberOfTeam: NUMBER_OF_TEAM,
+            _numberOfMemberEachTeam: NUMBER_MEMBER_EACH_TEAM
+        }));
+    }
+
+    // update matrix with new data
+    updateWithMemberSlot(memberSlotStorage.getAll());
+
+    for (let memberOrder = 1; memberOrder <= NUMBER_MEMBER_EACH_TEAM; memberOrder++) {
         for (let team = 1; team <= NUMBER_OF_TEAM; team++) {
             addEventToSlot({
                 _team: team,
                 _memberOrder: memberOrder,
                 _handleFunction:
                     function() {
-                        // Enter names onto team page
-                        if (currentSignUpEntity.getTeam() == null && !signedUpId(currentSignUpEntity)) {
-                            if (currentSignUpEntity.getId() != null && !isTaken(team, memberOrder)) {
-                                currentSignUpEntity.assignTeam(team, memberOrder);
-                                getElement("team-" + team + "-member-" + memberOrder).innerText =
-                                    currentSignUpEntity.m_name;
-                                alert("Sign up successful!");
-                                matrixStorage.add(getAllMatrix());
-                                matrixStorage.saveToCache();
-                                console.log(matrixStorage.getAll());
-                            } else {
-                                alert("This spot is taken!");
-                            }
-                        } else {
-                            alert("You've already signed up!");
+                        let memberSlot = memberSlotStorage.getAll();
+
+                        if (memberSlot.assignWithSignUpInfo(team, memberOrder, currentSignUpEntity)) {
+                            getElement("team-" + team + "-member-" + memberOrder).innerText =
+                                currentSignUpEntity.m_name;
+                            alert("Sign up successful!");
+                            // save to cache
+                            memberSlotStorage.assignData(memberSlot); // override all old data;
+                            memberSlotStorage.saveToCache();
                         }
                     }
             });
@@ -278,13 +285,14 @@ function checkSignInStatus() {
     }
     if (match && signInFlag === true) {
         toggleContent({ show: true });
+        if (match !== "#signature-dishes") {
+            getElement("dish-display").innerHTML = "";
+        }
         return;
     }
 }
 
 document.addEventListener("DOMContentLoaded", function(_) {
-    console.log(matrixStorage.getAll());
-    console.log(signUpStorage.getAll());
     checkSignInStatus();
     initMatrix();
     getElement("sign-up-btn").addEventListener("click", handleSignUp);
@@ -296,7 +304,6 @@ document.addEventListener("DOMContentLoaded", function(_) {
 
     getElement("add-recipe-btn").addEventListener("click", handleAddDish);
     getElement("your-dishes-btn").addEventListener("click", handleShowDish);
-    dishesList.style= "display: none;";
 });
 
 window.addEventListener("hashchange", function(_) {

@@ -275,15 +275,27 @@
             </br>
             <div>
                 <button id="your-dishes-btn" class="ui-btn ui-corner-all">Your dishes</button>
-                <ul id="dishes-list">
+                <div id="dish-display" class="gallery">
+                </div>
+
+                <div data-role="popup" id="image-pop-up">
+                    <label for="one_dish_title">Title</label>
+                    <input type="text" id="one_dish_title" readonly><br>
+                    <label for="one_dish_difficulty">Difficulty</label>
+                    <input type="text" id="one_dish_difficulty" readonly><br>
+                    <label for="one_dish_description">Describe the dishes</label>
+                    <input type="text" id="one_dish_description" readonly><br>
+                    <label for="one_dish_recipe">Recipe</label>
+                    <input type="text" id="one_dish_recipe" readonly><br>
+                </div>
             </div>
             <div>
                 <form>
                     <label for="title">Title</label>
                     <input type="text" id="title"><br>
 
-                    <label for="picture">Picture</label>
-                    <input type="file" id="picture" name="picture"><br>
+                    <label for="picture">Picture URL</label>
+                    <input type="text" id="picture" name="picture"><br>
 
                     <label for="dishes-difficulty">Difficulty</label>
                     <select name="difficulty" id="dishes-difficulty">
@@ -298,9 +310,6 @@
                     <textarea id="recipe"></textarea>
                     <button id="add-recipe-btn" class="ui-btn ui-corner-all">Add</button>
                 </form>
-            </div>
-            <div id="dish-display">
-
             </div>
         </div>
         <!-- notes footer -->
@@ -451,6 +460,7 @@
     <script src="contact-entity.js"></script>
     <script src="contactDish.js"></script>
     <script src="storage.js"></script>
+    <script src="member-slot.js"></script>
     <script src="matrix.js"></script>
     <script src="main.js"></script>
 </body>
