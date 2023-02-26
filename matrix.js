@@ -1,3 +1,4 @@
+// import java.awt.Color;
 const NUMBER_OF_TEAM = 3;
 const NUMBER_MEMBER_EACH_TEAM = 5;
 
@@ -13,6 +14,7 @@ function drawMatrixTo(elementId) {
         let th = document.createElement("th");
         th.setAttribute("id", "team-" + i);
         th.innerText = "Team " + i;
+        th.style.backgroundColor = "#93278f";
 
         teamRow.appendChild(th);
     }
@@ -24,13 +26,14 @@ function drawMatrixTo(elementId) {
             let td = document.createElement("td");
             td.setAttribute("id", "team-" + j + "-member-" + i);
             td.innerText = "Available to join";
+            td.style.backgroundColor = "#1e2224";
 
             row.appendChild(td);
         }
 
         table.appendChild(row);
     }
-
+    
     element.appendChild(table);
 }
 
